@@ -94,9 +94,9 @@ class GameManager {
         this.player.projectiles.forEach((projectile, pIndex) => {
             this.enemies.forEach((enemy, eIndex) => {
                 if (projectile.x < enemy.x + enemy.width &&
-                    projectile.x + projectile.radius * 2 > enemy.x &&
+                    projectile.x > enemy.x &&
                     projectile.y < enemy.y + enemy.height &&
-                    projectile.y + projectile.radius * 2 > enemy.y) {
+                    projectile.y > enemy.y) {
                     // Collision detected
                     this.player.projectiles.splice(pIndex, 1); // Remove the projectile
                     const rowScore = (this.totalRows - enemy.row) * 10; // Row 1 = 30 points, Row 2 = 20 points, Row 3 = 10 points
@@ -110,9 +110,9 @@ class GameManager {
     checkEnemyProjectileCollisions() {
         this.enemyProjectiles.forEach((projectile) => {
             if (projectile.x < this.player.x + this.player.width &&
-                projectile.x + projectile.radius * 2 > this.player.x &&
+                projectile.x > this.player.x &&
                 projectile.y < this.player.y + this.player.height &&
-                projectile.y + projectile.radius * 2 > this.player.y) {
+                projectile.y > this.player.y) {
                 // Collision detected with player ship
                 this.gameOver = true;
             }
@@ -139,9 +139,9 @@ class GameManager {
         if (this.mysteryShip && this.mysteryShip.active) {
             this.player.projectiles.forEach((projectile, pIndex) => {
                 if (projectile.x < this.mysteryShip.x + this.mysteryShip.width &&
-                    projectile.x + projectile.radius * 2 > this.mysteryShip.x &&
+                    projectile.x > this.mysteryShip.x &&
                     projectile.y < this.mysteryShip.y + this.mysteryShip.height &&
-                    projectile.y + projectile.radius * 2 > this.mysteryShip.y) {
+                    projectile.y > this.mysteryShip.y) {
                     // Collision detected
                     this.player.projectiles.splice(pIndex, 1); // Remove the projectile
                     this.score += 1000; // Award points
@@ -153,7 +153,7 @@ class GameManager {
 
     start() {
 
-        setInterval(() => this.spawnMysteryShip(), 10000); // Spawn every 10 seconds
+        setInterval(() => this.spawnMysteryShip(), 100); // Spawn every 10 seconds
 
         this.player = new Player(this.canvas.width / 2, this.canvas.height - 120, this.canvas);
 
@@ -297,7 +297,6 @@ class Projectile {
         this.height = 40;
         this.x = x - 10;
         this.y = y;
-        this.radius = 5;
         this.speed = speed;
         this.enemyFire = enemyFire;
         this.image = new Image();
