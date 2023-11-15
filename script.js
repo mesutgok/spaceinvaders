@@ -153,7 +153,7 @@ class GameManager {
 
     start() {
 
-        setInterval(() => this.spawnMysteryShip(), 100); // Spawn every 10 seconds
+        setInterval(() => this.spawnMysteryShip(), 10000); // Spawn every 10 seconds
 
         this.player = new Player(this.canvas.width / 2, this.canvas.height - 120, this.canvas);
 
